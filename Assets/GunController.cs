@@ -4,26 +4,38 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class GunController : MonoBehaviour {
-
-    [SerializeField]Image crosshair;
+    [Header("Mouse Controls")]
+    [SerializeField] Image crosshair;
+    [SerializeField] float aimPointZ = 10;
+    [Header("Bullet Spawning")]
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform bulletSpawn;
+    [Header("Gun Customization")]
+    [SerializeField] float bulletSpeed = 10;
+    [SerializeField] float gunCooldown = 2;
+    [SerializeField] float bulletLife = 5;
 
     CanvasScaler canvasScaler;
     Camera mainCamera;
     float resolutionX;
     float resolutionY;
+    bool canFire;
 	// Use this for initialization
 	void Start () {
         canvasScaler = crosshair.GetComponentInParent<CanvasScaler>();
-        //Cursor.visible = false;
+        Cursor.visible = false;
+        canFire = true;
         resolutionX = canvasScaler.referenceResolution.x;
         resolutionY = canvasScaler.referenceResolution.y;
         mainCamera = GetComponentInParent<Camera>();
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
         MoveCrosshair();
         AimGun();
+        FireGun();
 	}
 
     void MoveCrosshair()
@@ -32,14 +44,25 @@ public class GunController : MonoBehaviour {
             Input.mousePosition.y * resolutionY / Screen.height);
     }
     void AimGun() {
-        //var aimLocation = new Vector3(2 * ((Input.mousePosition.x - (resolutionX / 2)) / resolutionX),
-        //    2 * ((Input.mousePosition.y - (resolutionX / 2)) / canvasScaler.referenceResolution.y), 0);
-        //Debug.Log(aimLocation);
-        //transform.LookAt(aimLocation);
-        //Debug.DrawRay(transform.position, aimLocation, Color.red, 0.1f);
-        
-        var aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        var aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, aimPointZ));
         transform.LookAt(aimLocation);
-        Debug.Log(aimLocation + ", " + Input.mousePosition);
+        bulletSpawn.LookAt(aimLocation);
+    }
+    void FireGun()
+    {
+        if (!canFire) { return; }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            var bulletRigid = bullet.GetComponent<Rigidbody>();
+            bulletRigid.velocity = transform.forward * bulletSpeed;
+            ToggleFire();
+            Invoke("ToggleFire", gunCooldown);
+            Destroy(bullet, bulletLife);
+        }
+    }
+    void ToggleFire()
+    {
+        canFire = !canFire;
     }
 }
