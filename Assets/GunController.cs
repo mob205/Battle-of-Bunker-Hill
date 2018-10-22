@@ -4,17 +4,24 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class GunController : MonoBehaviour {
-    [Header("Mouse Controls")]
+    [Header("Aiming")]
     [SerializeField] Image crosshair;
     [SerializeField] float aimPointZ = 10;
+
     [Header("Bullet Spawning")]
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawn;
+
     [Header("Gun Customization")]
     [SerializeField] float bulletSpeed = 10;
     [SerializeField] float gunCooldown = 2;
     [SerializeField] float bulletLife = 5;
 
+    [Header("Game Settings")]
+    [SerializeField] int startingBullets = 2;
+
+
+    public static int bulletCount;
     CanvasScaler canvasScaler;
     Camera mainCamera;
     float resolutionX;
@@ -28,7 +35,7 @@ public class GunController : MonoBehaviour {
         resolutionX = canvasScaler.referenceResolution.x;
         resolutionY = canvasScaler.referenceResolution.y;
         mainCamera = GetComponentInParent<Camera>();
-        
+        bulletCount = startingBullets;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +57,7 @@ public class GunController : MonoBehaviour {
     }
     void FireGun()
     {
+        if(bulletCount <= 0) { return; }
         if (!canFire) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -59,6 +67,15 @@ public class GunController : MonoBehaviour {
             ToggleFire();
             Invoke("ToggleFire", gunCooldown);
             Destroy(bullet, bulletLife);
+            UseAmmo();
+        }
+    }
+    void UseAmmo()
+    {
+        bulletCount--;
+        if(bulletCount <= 0)
+        {
+            Debug.Log("Out of ammo!");
         }
     }
     void ToggleFire()
