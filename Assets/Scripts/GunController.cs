@@ -72,6 +72,7 @@ public class GunController : MonoBehaviour {
     }
     void UseAmmo()
     {
+        
         bulletCount--;
         if(bulletCount <= 0)
         {
