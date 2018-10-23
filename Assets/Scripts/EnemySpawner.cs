@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour {
 
     [SerializeField] GameObject enemy;
     [SerializeField] Transform parent;
-    [SerializeField] TimelineAsset timeline;
+    [SerializeField] List<TimelineAsset> timelines;
 
 	// Use this for initialization
 	void Start () {
@@ -25,15 +25,11 @@ public class EnemySpawner : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.Log("Z pressed");
+            int index = Random.Range(0, timelines.Count);
             var soldier = Instantiate(enemy, parent);
             var director = soldier.GetComponent<PlayableDirector>();
-            director.playableAsset = timeline;
+            director.playableAsset = timelines[index];
             director.Play();
-            
-        }
-        else
-        {
-            Debug.Log("Z not pressed");
         }
     }
 }
