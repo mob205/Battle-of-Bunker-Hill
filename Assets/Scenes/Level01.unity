@@ -416,7 +416,7 @@ Prefab:
     - target: {fileID: 114916360631755884, guid: fdb98c9c848a31b418165d4d029b096d,
         type: 2}
       propertyPath: startingBullets
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fdb98c9c848a31b418165d4d029b096d, type: 2}
@@ -540,6 +540,10 @@ Prefab:
     - target: {fileID: 4973633269696238, guid: 18e4118a14a50b645b4afbe02d3a6494, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173935514088844, guid: 18e4118a14a50b645b4afbe02d3a6494, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18e4118a14a50b645b4afbe02d3a6494, type: 2}

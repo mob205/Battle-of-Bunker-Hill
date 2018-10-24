@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
 
+    [SerializeField] int bulletsOnKill = 1;
+    [SerializeField] int bonusBullets = 2;
+    [SerializeField] int bonusPercent = 50;
+
     int scoreOnHit = 50;
     float enemyDuration = 15;
 
@@ -21,9 +25,22 @@ public class EnemyManager : MonoBehaviour {
         Debug.Log("Collision detected");
         if (collision.collider.CompareTag("Bullet"))
         {
-            ScoreCounter.AddScore(scoreOnHit);
-            Destroy(gameObject);
+            DoDeathSequence();
         }
+    }
+    void DoDeathSequence()
+    {
+        var randomNumber = Random.Range(0, 100);
+        if(randomNumber <= bonusPercent)
+        {
+            GunController.bulletCount += bonusBullets;
+        }
+        else
+        {
+            GunController.bulletCount += bulletsOnKill;
+        }
+        ScoreCounter.AddScore(scoreOnHit);
+        Destroy(gameObject);
     }
 }
 
