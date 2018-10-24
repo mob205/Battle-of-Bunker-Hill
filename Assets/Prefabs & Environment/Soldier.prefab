@@ -569,6 +569,8 @@ MonoBehaviour:
   bulletsOnKill: 1
   bonusBullets: 2
   bonusPercent: 18
+  scoreOnHit: 500
+  enemyDuration: 10
 --- !u!320 &320191461987326404
 PlayableDirector:
   m_ObjectHideFlags: 1

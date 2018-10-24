@@ -389,6 +389,11 @@ Prefab:
       propertyPath: startingBullets
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114916360631755884, guid: fdb98c9c848a31b418165d4d029b096d,
+        type: 2}
+      propertyPath: gameOverDelay
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fdb98c9c848a31b418165d4d029b096d, type: 2}
   m_IsPrefabParent: 0

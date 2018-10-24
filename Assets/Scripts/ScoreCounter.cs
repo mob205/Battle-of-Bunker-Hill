@@ -13,7 +13,7 @@ public class ScoreCounter : MonoBehaviour {
     static int score;
     void Awake()
     {
-        highscore = ScoreHolder.GetHighscore();
+        score = 0;
     }
     // Use this for initialization
     void Start () {

@@ -7,9 +7,8 @@ public class EnemyManager : MonoBehaviour {
     [SerializeField] int bulletsOnKill = 1;
     [SerializeField] int bonusBullets = 2;
     [SerializeField] int bonusPercent = 50;
-
-    int scoreOnHit = 50;
-    float enemyDuration = 15;
+    [SerializeField] int scoreOnHit = 50;
+    [SerializeField] float enemyDuration = 15;
 
 	// Use this for initialization
 	void Start () {
