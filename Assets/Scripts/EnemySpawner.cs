@@ -9,6 +9,9 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] GameObject enemy;
     [SerializeField] Transform parent;
     [SerializeField] List<TimelineAsset> timelines;
+    [SerializeField] float spawnTimer = 3f;
+
+    bool canSpawn = true;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +20,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SpawnDebug();
+        SpawnEnemy();
     }
     void SpawnDebug()
     {
@@ -30,6 +34,22 @@ public class EnemySpawner : MonoBehaviour {
             director.playableAsset = timelines[index];
             director.Play();
         }
+    }
+    void SpawnEnemy()
+    {
+        if (!canSpawn) { return; }
+        int index = Random.Range(0, timelines.Count);
+        var soldier = Instantiate(enemy, parent);
+        var director = soldier.GetComponent<PlayableDirector>();
+        director.playableAsset = timelines[index];
+        director.Play();
+        ToggleSpawnable();
+        Invoke("ToggleSpawnable", spawnTimer);
+        
+    }
+    void ToggleSpawnable()
+    {
+        canSpawn = !canSpawn;
     }
     
 }

@@ -19,6 +19,7 @@ public class GunController : MonoBehaviour {
 
     [Header("Game Settings")]
     [SerializeField] int startingBullets = 2;
+    [SerializeField] int maxBullets = 5;
 
 
     public static int bulletCount;
@@ -43,6 +44,7 @@ public class GunController : MonoBehaviour {
         MoveCrosshair();
         AimGun();
         FireGun();
+        ClampAmmo();
 	}
 
     void MoveCrosshair()
@@ -82,5 +84,9 @@ public class GunController : MonoBehaviour {
     void ToggleFire()
     {
         canFire = !canFire;
+    }
+    void ClampAmmo()
+    {
+        bulletCount = Mathf.Clamp(bulletCount, 0, maxBullets);
     }
 }

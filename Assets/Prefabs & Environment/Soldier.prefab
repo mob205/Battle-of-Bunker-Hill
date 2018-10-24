@@ -476,7 +476,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3, z: 2}
+  m_Size: {x: 1.5, y: 2, z: 1.5}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65361901715906688
 BoxCollider:
@@ -567,8 +567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletsOnKill: 1
-  bonusBullets: 3
-  bonusPercent: 25
+  bonusBullets: 2
+  bonusPercent: 12
 --- !u!320 &320191461987326404
 PlayableDirector:
   m_ObjectHideFlags: 1
