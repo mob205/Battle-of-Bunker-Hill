@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GunController : MonoBehaviour {
     [Header("Aiming")]
@@ -20,6 +21,7 @@ public class GunController : MonoBehaviour {
     [Header("Game Settings")]
     [SerializeField] int startingBullets = 2;
     [SerializeField] int maxBullets = 5;
+    [SerializeField] float gameOverDelay = 1f;
 
 
     public static int bulletCount;
@@ -28,6 +30,7 @@ public class GunController : MonoBehaviour {
     float resolutionX;
     float resolutionY;
     bool canFire;
+
 	// Use this for initialization
 	void Start () {
         canvasScaler = crosshair.GetComponentInParent<CanvasScaler>();
@@ -74,13 +77,18 @@ public class GunController : MonoBehaviour {
     }
     void UseAmmo()
     {
-        
         bulletCount--;
-        if(bulletCount <= 0)
+        Invoke("LoadNextScene", gameOverDelay);
+    }
+    void LoadNextScene()
+    {
+        if (bulletCount <= 0)
         {
-            Debug.Log("Out of ammo!");
+            Cursor.visible = true;
+            SceneManager.LoadScene(2);
         }
     }
+    
     void ToggleFire()
     {
         canFire = !canFire;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreCounter : MonoBehaviour {
+public class QuitGameScoreCounter : MonoBehaviour {
 
     [SerializeField] GameObject highscoreObject;
 
@@ -14,34 +14,34 @@ public class ScoreCounter : MonoBehaviour {
     void Awake()
     {
         highscore = ScoreHolder.GetHighscore();
+        score = ScoreHolder.GetScore();
     }
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         text = GetComponent<TextMeshProUGUI>();
         highscoreText = highscoreObject.GetComponent<TextMeshProUGUI>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         UpdateScore();
         UpdateHighscore();
-	}
+    }
     void UpdateScore()
     {
-        text.text = ProcessScore(score);
+        text.text = "SCORE: " + ProcessScore(score);
     }
     void UpdateHighscore()
     {
-        if(score > highscore)
+        if (score > highscore)
         {
             highscore = score;
         }
         highscoreText.text = "HIGH SCORE: " + ProcessScore(highscore);
     }
-    public static void AddScore(int scoreToAdd)
-    {
-        score += scoreToAdd;
-    }
+
     string ProcessScore(int unprocessed)
     {
         var originalString = unprocessed.ToString();
@@ -61,13 +61,5 @@ public class ScoreCounter : MonoBehaviour {
             zeroString = zeroString.Remove(0, 1);
         }
         return zeroString;
-    }
-    public static int GetScore()
-    {
-        return score;
-    }
-    public static int GetHighScore()
-    {
-        return highscore;
     }
 }

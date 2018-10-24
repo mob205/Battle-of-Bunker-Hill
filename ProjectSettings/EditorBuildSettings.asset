@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level01.unity
     guid: b77ee08584faabf47a1ed52fbb1266ef
+  - enabled: 1
+    path: Assets/Scenes/Quit Menu.unity
+    guid: 46bcb27089389ed4da3af5780aca3a01
