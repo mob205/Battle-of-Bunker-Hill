@@ -9,20 +9,11 @@ public class GunController : MonoBehaviour {
     [SerializeField] Image crosshair;
     [SerializeField] float aimPointZ = 10;
 
-    [Header("Bullet Spawning")]
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Transform bulletSpawn;
-
-    [Header("Gun Customization")]
-    [SerializeField] float bulletSpeed = 10;
-    [SerializeField] float gunCooldown = 2;
-    [SerializeField] float bulletLife = 5;
-
     [Header("Game Settings")]
     [SerializeField] int startingBullets = 2;
     [SerializeField] int maxBullets = 5;
     [SerializeField] float gameOverDelay = 1f;
-
+    [SerializeField] float gunCooldown = 2;
 
     public static int bulletCount;
     CanvasScaler canvasScaler;
@@ -91,7 +82,7 @@ public class GunController : MonoBehaviour {
     void UseAmmo()
     {
         bulletCount--;
-        Invoke("LoadNextScene", gameOverDelay);
+        Invoke("LoadNextScene", gameOverDelay * Time.timeScale);
     }
     void LoadNextScene()
     {

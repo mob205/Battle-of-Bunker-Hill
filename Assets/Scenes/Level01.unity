@@ -903,6 +903,11 @@ Prefab:
       propertyPath: spawnTimer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114921882335839036, guid: a91a6a6b0e0b3e049bfafa5b1f9b110a,
+        type: 2}
+      propertyPath: timeIncreaseFactor
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a91a6a6b0e0b3e049bfafa5b1f9b110a, type: 2}
   m_IsPrefabParent: 0

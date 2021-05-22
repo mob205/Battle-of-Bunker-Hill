@@ -12,22 +12,13 @@ public class EnemyManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Destroy(gameObject, enemyDuration);
+        Invoke("Despawn", enemyDuration);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    Debug.Log("Collision detected");
-    //    if (collision.collider.CompareTag("Bullet"))
-    //    {
-    //        DoDeathSequence();
-    //    }
-    //}
-
+    void Despawn()
+    {
+        Destroy(gameObject);
+        Debug.Log("Enemy missed");
+    }
     public void DoDeathSequence()
     {
         var randomNumber = Random.Range(0, 100);
