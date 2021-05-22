@@ -568,9 +568,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletsOnKill: 1
   bonusBullets: 2
-  bonusPercent: 10
+  bonusPercent: 5
   scoreOnHit: 500
-  enemyDuration: 10
+  enemyDuration: 5.6
 --- !u!320 &320191461987326404
 PlayableDirector:
   m_ObjectHideFlags: 1

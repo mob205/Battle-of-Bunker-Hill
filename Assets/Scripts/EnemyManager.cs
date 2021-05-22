@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour {
     void Despawn()
     {
         Destroy(gameObject);
-        Debug.Log("Enemy missed");
+        LifeManager.instance.RemoveLife();
     }
     public void DoDeathSequence()
     {
@@ -31,6 +31,7 @@ public class EnemyManager : MonoBehaviour {
             GunController.bulletCount += bulletsOnKill;
         }
         ScoreCounter.AddScore(scoreOnHit);
+        LifeManager.instance.AddLife();
         Destroy(gameObject);
     }
 }

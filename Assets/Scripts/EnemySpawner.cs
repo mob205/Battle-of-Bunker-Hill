@@ -52,7 +52,6 @@ public class EnemySpawner : MonoBehaviour {
     void IncreaseDifficulty()
     {
         Time.timeScale = 1 + (timeIncreaseFactor * Time.timeSinceLevelLoad);
-        Debug.Log(Time.timeScale);
     }
     void ToggleSpawnable()
     {

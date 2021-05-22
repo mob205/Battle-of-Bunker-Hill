@@ -12,35 +12,32 @@ public class GunController : MonoBehaviour {
     [Header("Game Settings")]
     [SerializeField] int startingBullets = 2;
     [SerializeField] int maxBullets = 5;
-    [SerializeField] float gameOverDelay = 1f;
+    [SerializeField] static float gameOverDelay = 1f;
     [SerializeField] float gunCooldown = 2;
 
+    [Header("References")]
+    [SerializeField] ParticleSystem firingParticles;
+
     public static int bulletCount;
-    CanvasScaler canvasScaler;
     Camera mainCamera;
-    float resolutionX;
-    float resolutionY;
     bool canFire;
     Vector3 aimLocation;
 
-	// Use this for initialization
-	void Start () {
-        canvasScaler = crosshair.GetComponentInParent<CanvasScaler>();
-        //Cursor.visible = false;
+    // Use this for initialization
+    void Start() {
+        Cursor.visible = false;
         canFire = true;
-        resolutionX = canvasScaler.referenceResolution.x;
-        resolutionY = canvasScaler.referenceResolution.y;
         mainCamera = GetComponentInParent<Camera>();
         bulletCount = startingBullets;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update() {
         MoveCrosshair();
         AimGun();
         FireGun();
         ClampAmmo();
-	}
+    }
 
     void MoveCrosshair()
     {
@@ -49,11 +46,10 @@ public class GunController : MonoBehaviour {
     void AimGun() {
         aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, aimPointZ));
         transform.LookAt(aimLocation);
-        //bulletSpawn.LookAt(aimLocation);
     }
     void FireGun()
     {
-        if(bulletCount <= 0) { return; }
+        if (bulletCount <= 0) { return; }
         if (!canFire) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -61,38 +57,33 @@ public class GunController : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
             {
-                Debug.Log("hit something.");
                 var enemy = hit.collider.gameObject.GetComponent<EnemyManager>();
                 if (enemy)
                 {
-                    Debug.Log("hit an enemy.");
                     enemy.DoDeathSequence();
                 }
             }
-
-            //GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            //var bulletRigid = bullet.GetComponent<Rigidbody>();
-            //bulletRigid.velocity = transform.forward * bulletSpeed;
-            //Destroy(bullet, bulletLife);
             ToggleFire();
             Invoke("ToggleFire", gunCooldown);
             UseAmmo();
+            firingParticles.Play();
         }
     }
     void UseAmmo()
     {
         bulletCount--;
-        Invoke("LoadNextScene", gameOverDelay * Time.timeScale);
-    }
-    void LoadNextScene()
-    {
         if (bulletCount <= 0)
         {
-            Cursor.visible = true;
-            SceneManager.LoadScene(2);
+            StartCoroutine(EndGame());
         }
     }
-    
+    public static IEnumerator EndGame()
+    {
+        Debug.Log("ending the game");
+        yield return new WaitForSeconds(gameOverDelay * Time.timeScale);
+        Cursor.visible = true;
+        SceneManager.LoadScene(2);
+    }
     void ToggleFire()
     {
         canFire = !canFire;
