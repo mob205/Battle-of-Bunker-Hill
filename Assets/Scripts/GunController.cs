@@ -17,6 +17,7 @@ public class GunController : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] ParticleSystem firingParticles;
+    [SerializeField] AudioSource firingSound;
 
     public static int bulletCount;
     Camera mainCamera;
@@ -67,6 +68,7 @@ public class GunController : MonoBehaviour {
             Invoke("ToggleFire", gunCooldown);
             UseAmmo();
             firingParticles.Play();
+            firingSound.Play();
         }
     }
     void UseAmmo()
