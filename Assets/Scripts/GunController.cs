@@ -30,11 +30,12 @@ public class GunController : MonoBehaviour {
     float resolutionX;
     float resolutionY;
     bool canFire;
+    Vector3 aimLocation;
 
 	// Use this for initialization
 	void Start () {
         canvasScaler = crosshair.GetComponentInParent<CanvasScaler>();
-        Cursor.visible = false;
+        //Cursor.visible = false;
         canFire = true;
         resolutionX = canvasScaler.referenceResolution.x;
         resolutionY = canvasScaler.referenceResolution.y;
@@ -52,13 +53,12 @@ public class GunController : MonoBehaviour {
 
     void MoveCrosshair()
     {
-        crosshair.rectTransform.anchoredPosition = new Vector2(Input.mousePosition.x * resolutionX / Screen.width,
-            Input.mousePosition.y * resolutionY / Screen.height);
+        crosshair.rectTransform.anchoredPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     }
     void AimGun() {
-        var aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, aimPointZ));
+        aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, aimPointZ));
         transform.LookAt(aimLocation);
-        bulletSpawn.LookAt(aimLocation);
+        //bulletSpawn.LookAt(aimLocation);
     }
     void FireGun()
     {
@@ -66,12 +66,25 @@ public class GunController : MonoBehaviour {
         if (!canFire) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            var bulletRigid = bullet.GetComponent<Rigidbody>();
-            bulletRigid.velocity = transform.forward * bulletSpeed;
+            Ray ray = new Ray(mainCamera.transform.position, aimLocation);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
+            {
+                Debug.Log("hit something.");
+                var enemy = hit.collider.gameObject.GetComponent<EnemyManager>();
+                if (enemy)
+                {
+                    Debug.Log("hit an enemy.");
+                    enemy.DoDeathSequence();
+                }
+            }
+
+            //GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            //var bulletRigid = bullet.GetComponent<Rigidbody>();
+            //bulletRigid.velocity = transform.forward * bulletSpeed;
+            //Destroy(bullet, bulletLife);
             ToggleFire();
             Invoke("ToggleFire", gunCooldown);
-            Destroy(bullet, bulletLife);
             UseAmmo();
         }
     }

@@ -19,15 +19,16 @@ public class EnemyManager : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision detected");
-        if (collision.collider.CompareTag("Bullet"))
-        {
-            DoDeathSequence();
-        }
-    }
-    void DoDeathSequence()
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log("Collision detected");
+    //    if (collision.collider.CompareTag("Bullet"))
+    //    {
+    //        DoDeathSequence();
+    //    }
+    //}
+
+    public void DoDeathSequence()
     {
         var randomNumber = Random.Range(0, 100);
         if(randomNumber <= bonusPercent)

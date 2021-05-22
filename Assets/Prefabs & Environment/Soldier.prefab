@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33095649513941322}
   - component: {fileID: 65558805845942060}
   - component: {fileID: 23012237594187648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33926180830285078}
   - component: {fileID: 65943142155998474}
   - component: {fileID: 23552114897119924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 95779652448154184}
   - component: {fileID: 114295143071489260}
   - component: {fileID: 65306197003802296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier
   m_TagString: Enemy
   m_Icon: {fileID: 0}
