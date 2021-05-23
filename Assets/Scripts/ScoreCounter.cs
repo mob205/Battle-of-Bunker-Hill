@@ -6,11 +6,14 @@ using TMPro;
 public class ScoreCounter : MonoBehaviour {
 
     [SerializeField] GameObject highscoreObject;
+    [SerializeField] AudioSource scoreSound;
 
     TextMeshProUGUI highscoreText;
     TextMeshProUGUI text;
     static int highscore;
     static int score;
+
+    static AudioSource sound;
     void Awake()
     {
         score = 0;
@@ -19,6 +22,7 @@ public class ScoreCounter : MonoBehaviour {
     void Start () {
         text = GetComponent<TextMeshProUGUI>();
         highscoreText = highscoreObject.GetComponent<TextMeshProUGUI>();
+        sound = scoreSound;
 	}
 	
 	// Update is called once per frame
@@ -41,6 +45,7 @@ public class ScoreCounter : MonoBehaviour {
     public static void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
+        sound.Play();
     }
     string ProcessScore(int unprocessed)
     {

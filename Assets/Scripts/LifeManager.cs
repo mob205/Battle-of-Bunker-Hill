@@ -7,6 +7,7 @@ public class LifeManager : MonoBehaviour {
 
     [HideInInspector] public static LifeManager instance;
     [SerializeField] Image[] lifeImages;
+    [SerializeField] AudioSource loseLifeSound;
 
     [SerializeField] int lives = 3;
     void Start()
@@ -29,6 +30,7 @@ public class LifeManager : MonoBehaviour {
         {
             StartCoroutine(GunController.EndGame());
         }
+        loseLifeSound.Play();
     }
     void UpdateUI()
     {

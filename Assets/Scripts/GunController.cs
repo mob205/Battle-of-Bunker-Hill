@@ -81,7 +81,6 @@ public class GunController : MonoBehaviour {
     }
     public static IEnumerator EndGame()
     {
-        Debug.Log("ending the game");
         yield return new WaitForSeconds(gameOverDelay * Time.timeScale);
         Cursor.visible = true;
         SceneManager.LoadScene(2);
