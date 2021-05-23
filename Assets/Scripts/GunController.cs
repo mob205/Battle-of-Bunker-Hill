@@ -26,7 +26,7 @@ public class GunController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         canFire = true;
         mainCamera = GetComponentInParent<Camera>();
         bulletCount = startingBullets;
@@ -42,7 +42,8 @@ public class GunController : MonoBehaviour {
 
     void MoveCrosshair()
     {
-        crosshair.rectTransform.anchoredPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        //crosshair.rectTransform.anchoredPosition = new Vector2(Input.mousePosition.x * (crosshair.canvas.pixelRect.width));
+        crosshair.rectTransform.anchoredPosition = Input.mousePosition * (1/crosshair.canvas.transform.localScale.x);
     }
     void AimGun() {
         aimLocation = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, aimPointZ));
